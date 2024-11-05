@@ -1,4 +1,3 @@
-
 let hours = 0;
 let mins = 0;
 let seconds = 0;
@@ -9,8 +8,10 @@ const hoursDisplay = document.getElementById("hours");
 const minsDisplay = document.getElementById("mins");
 const secDisplay = document.getElementById("sec");
 const msDisplay = document.getElementById("ms");
+const logList = document.getElementById("logList");
 
 function startTimer() {
+    clearInterval(interval);
     interval = setInterval(() => {
         milliseconds += 10;
 
@@ -48,6 +49,14 @@ function resetTimer() {
     minsDisplay.textContent = "00";
     secDisplay.textContent = "00";
     msDisplay.textContent = "00";
+    logList.innerHTML = "";  // Clear the history log on reset
+}
+
+function recordLap() {
+    const lapTime = `${hoursDisplay.textContent}:${minsDisplay.textContent}:${secDisplay.textContent}:${msDisplay.textContent}`;
+    const lapItem = document.createElement("li");
+    lapItem.textContent = `Lap: ${lapTime}`;
+    logList.appendChild(lapItem);
 }
 
 document.querySelector(".buttons button:nth-child(1)").addEventListener("click", startTimer);
